@@ -6,6 +6,11 @@ import { fillSanChuan, getSanChuan } from "./utils/sanChuan";
 import { getShenSha } from "./utils/shenSha";
 import { getSiKe } from "./utils/siKe";
 import { getTianDiPan } from "./utils/tianDiPan";
+
+// 导出金口诀相关
+export * from "./jinKouJue";
+export * from "./jinKouJue/type";
+
 export const getLiuRenByDate = (time: Date): LiuRenResult => {
     const date = getDateByObj(time)
     const riGan = date.bazi.split(" ")[2].substring(0, 1)
