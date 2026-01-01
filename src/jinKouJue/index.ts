@@ -139,37 +139,40 @@ export const getJinKouJueByDateInfo = (dateInfo: DateInfo, diFen: string): JinKo
      // 1. 人元
      const renYuanName = getWuShuDun(dayGan, diFen);
      
-     // 2. 贵神
-     const guiShenName = getGuiShen(dayGan, timeZhi, diFen);
-     
-     // 3. 将神
-     const jiangShenZhi = getJiangShen(yueJiang, timeZhi, diFen); // 返回的是地支
-     // 将神使用别名
-     const jiangShenName = YueJiangName[jiangShenZhi as keyof typeof YueJiangName] || jiangShenZhi;
-     
-     // 组装
-     const siWei: SiWei = {
-         renYuan: {
-             name: renYuanName,
-             ganZhi: renYuanName,
-             wuXing: getWuXing(renYuanName)
-         },
-         guiShen: {
-             name: guiShenName,
-             ganZhi: getShenGanZhi(guiShenName),
-             wuXing: getWuXing(guiShenName)
-         },
-         jiangShen: {
-             name: jiangShenName, // 使用别名，如 大吉
-             ganZhi: jiangShenZhi, // 地支，如 丑
-             wuXing: getWuXing(jiangShenZhi) // 五行用地支查更准
-         },
-         diFen: {
-             name: diFen,
-             ganZhi: diFen,
-             wuXing: getWuXing(diFen)
-         }
-     };
+    // 2. 贵神
+    const guiShenName = getGuiShen(dayGan, timeZhi, diFen);
+    const guiShenZhi = getShenGanZhi(guiShenName);
+    const guiShenGan = getWuShuDun(dayGan, guiShenZhi);
+
+    // 3. 将神
+    const jiangShenZhi = getJiangShen(yueJiang, timeZhi, diFen); // 返回的是地支
+    // 将神使用别名
+    const jiangShenName = YueJiangName[jiangShenZhi as keyof typeof YueJiangName] || jiangShenZhi;
+    const jiangShenGan = getWuShuDun(dayGan, jiangShenZhi);
+
+    // 组装
+    const siWei: SiWei = {
+        renYuan: {
+            name: renYuanName,
+            ganZhi: renYuanName,
+            wuXing: getWuXing(renYuanName)
+        },
+        guiShen: {
+            name: guiShenName,
+            ganZhi: guiShenGan + guiShenZhi,
+            wuXing: getWuXing(guiShenName)
+        },
+        jiangShen: {
+            name: jiangShenName, // 使用别名，如 大吉
+            ganZhi: jiangShenGan + jiangShenZhi, // 干支
+            wuXing: getWuXing(jiangShenZhi) // 五行用地支查更准
+        },
+        diFen: {
+            name: diFen,
+            ganZhi: diFen,
+            wuXing: getWuXing(diFen)
+        }
+    };
  
      return {
          date: dateInfo,

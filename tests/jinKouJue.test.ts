@@ -26,13 +26,15 @@ describe('JinKouJue', () => {
     // 将神: 月将午加时巳 -> 地分子 -> 丑
     // 丑对应的月将名为 大吉
     expect(result.siWei.jiangShen.name).toBe("大吉");
-    expect(result.siWei.jiangShen.ganZhi).toBe("丑");
+    expect(result.siWei.jiangShen.ganZhi).toBe("丁丑");
     expect(result.siWei.jiangShen.wuXing).toBe("土");
     
     // 贵神: 乙日昼贵在子，顺行至子 -> 贵人
     // 乙己鼠猴乡，乙日阳贵(昼)在子。子为顺。
     // 起点子，终点子 -> 贵人
+    // 贵人本位在丑，乙日遁丑为丁（乙庚丙作初，丙子、丁丑）
     expect(result.siWei.guiShen.name).toBe("贵人");
+    expect(result.siWei.guiShen.ganZhi).toBe("丁丑");
     expect(result.siWei.guiShen.wuXing).toBe("土");
 
     // 地分
