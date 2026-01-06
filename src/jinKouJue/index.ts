@@ -4,6 +4,7 @@ import { YueJiang, YueJiangName } from "../maps/yueJiang";
 import { YangGui, YinGui, YinYang, ShunNi, ShenJiangArray } from "../maps/shenJiang";
 import { WuXing } from "../maps/wuXing";
 import { JinKouJueResult, Position, SiWei } from "./type";
+import { getShenSha } from "./shenSha";
 
 // 五鼠遁：日干 -> 地支 -> 干
 export const getWuShuDun = (dayGan: string, diZhi: string): string => {
@@ -173,12 +174,18 @@ export const getJinKouJueByDateInfo = (dateInfo: DateInfo, diFen: string): JinKo
             wuXing: getWuXing(diFen)
         }
     };
+
+    const result: JinKouJueResult = {
+        date: dateInfo,
+        diFen: diFen,
+        siWei: siWei,
+        shenSha: []
+    };
+    
+    // 计算神煞
+    result.shenSha = getShenSha(result);
  
-     return {
-         date: dateInfo,
-         diFen: diFen,
-         siWei: siWei
-     };
+     return result;
 }
 
 export const getJinKouJue = (date: Date, diFen: string): JinKouJueResult => {
